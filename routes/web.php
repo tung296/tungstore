@@ -14,11 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 
-Route::get('/', function() {
-    if(Auth()->user())
-        return view('dashboard.index');
-    // return view('pages.dashboard.index');
-});
+// Route::get('/', function() {
+//     if(Auth()->user())
+//         return view('dashboard.index');
+//     // return view('pages.dashboard.index');
+// });
+
 
 Route::get('/login', function() {
     if(Auth()->user())
@@ -49,3 +50,9 @@ Route::group(['middleware' => ['auth']], function() {
 Route::post('/upload-ckeditor', 'CkeditorController@upload_ckeditor');
 Route::get('/upload-browser', 'CkeditorController@upload_browser');
 Route::get('/del-ckeditor/{filename}', 'CkeditorController@del_ckeditor');
+
+Route::get('/','FrontController@home')->name('home');
+Route::get('product-type','FrontController@product_type')->name('product_type');
+Route::get('product','FrontController@product')->name('product');
+Route::get('contact','FrontController@contact')->name('contact');
+Route::get('about','FrontController@about')->name('about');
