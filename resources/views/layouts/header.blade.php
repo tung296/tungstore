@@ -154,10 +154,8 @@
                             </div>
                          </a>
                          <div class="d-inline-block w-100 text-center p-3">
-                           <form method="POST" action="/logout">
-                              @csrf
-                              <button type="submit" class="bg-primary iq-sign-btn">Sign out<i class="ri-login-box-line ml-2"></i></button>
-                           </form>
+                        
+                           <a href="{{ route('admin.logout') }}" class="bg-primary iq-sign-btn">Sign out<i class="ri-login-box-line ml-2"></i></a>
                          </div>
                       </div>
                    </div>

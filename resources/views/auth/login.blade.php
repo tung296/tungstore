@@ -6,38 +6,7 @@
  </div>
  <section class="sign-in-page">
     <div class="container p-0" id="sign-in-page-box">
-          <div class="bg-white form-container sign-up-container">
-             <div class="sign-in-page-data">
-                <div class="sign-in-from w-100 m-auto">
-                    <h1 class="mb-3 text-center">Sign Up</h1>
-                    <p class="text-center text-dark">Enter your email address and password to access admin panel.</p>
-                    <form class="mt-4" method="POST" action="">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Your Full Name</label>
-                            <input type="email" class="form-control mb-0" id="exampleInputEmail1" placeholder="Your Full Name">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail2">Email address</label>
-                            <input type="email" class="form-control mb-0" id="exampleInputEmail2" placeholder="Enter email">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control mb-0" id="exampleInputPassword1" placeholder="Password">
-                        </div> 
-                        <div class="d-inline-block w-100">
-                            <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                <label class="custom-control-label" for="customCheck1">I accept <a href="#">Terms and Conditions</a></label>
-                            </div>
-                        </div>
-                        <div class="sign-info">
-                            <button type="submit" class="btn btn-primary mb-2">Sign Up</button>
-                            <span class="text-dark d-block line-height-2">Already Have Account ? <a href="#">Log In</a></span>
-                        </div>
-                    </form>
-                </div>
-            </div>
-          </div>
+    
           <div class="bg-white form-container sign-in-container">
               <div class="sign-in-page-data">
                 <div class="sign-in-from w-100 m-auto">
@@ -50,7 +19,7 @@
                             @endforeach
                         </div>
                     @endif
-                    <form class="mt-4" method="POST" action="{{ route('login') }}">
+                    <form class="mt-4" method="POST" action="{{ route('admin.login') }}">
                         @csrf
                         <div class="form-group">
                             <label for="exampleInputEmail2">Email address</label>
@@ -102,8 +71,19 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('admin.login') }}">
                         @csrf
+                        
+                        @if(session('thongbao'))
+                            <p class="text-success text-center">
+                                {{session('thongbao')}}
+                            </p>
+                        @endif
+                        @if(session('error'))
+                            <p class="text-danger text-center">
+                                {{session('error')}}
+                            </p>
+                        @endif
 
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>

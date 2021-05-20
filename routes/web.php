@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
 
 // Route::get('/', function() {
 //     if(Auth()->user())
@@ -21,30 +20,37 @@ Auth::routes();
 // });
 
 
-Route::get('/login', function() {
-    if(Auth()->user())
-        return view('dashboard.index');
-    return view('auth.login');
+Route::prefix('admin')->group(function() {
+    // Route::get('/login', function() {
+    //     if(Auth()->user())
+    //         return view('dashboard.index');
+    //     return view('auth.login');
+    // });
+    
+    // Route::post('/login', 'AuthController@postLogin')->name('admin.login');
+    Route::match(['get', 'post'], '/login', 'AuthController@login')->name('admin.login');
+
+    Route::get('/logout', 'AuthController@logout')->name('admin.logout');
+    
+    Route::get('/', 'HomeController@index')->name('admin.home');
+    
+    Route::group(['middleware' => ['auth']], function() {
+    
+        Route::resource('roles','RoleController');
+        Route::resource('users','UserController');
+        Route::resource('products','ProductController');
+        Route::resource('banners','BannerController');
+        Route::resource('categories','CategoryController');
+        Route::resource('permissions','PermissionController');
+        
+        // Route::post('/export-csv','ExcelController@export_csv');
+        // Route::post('/import-csv','ExcelController@import_csv');
+    });
 });
 
-Route::post('/login', 'AuthController@postLogin')->name('login');
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::group(['middleware' => ['auth']], function() {
-
-    Route::resource('roles','RoleController');
-    Route::resource('users','UserController');
-    Route::resource('products','ProductController');
-    Route::resource('banners','BannerController');
-    Route::resource('categories','CategoryController');
-    Route::resource('permissions','PermissionController');
-    Route::resource('media','MediaController');
-    Route::get('get_media','MediaController@getmedia');
-
-    // Route::post('/export-csv','ExcelController@export_csv');
-    // Route::post('/import-csv','ExcelController@import_csv');
-}); 
+Route::get('get_media','MediaController@getmedia');
+Route::resource('media','MediaController');
+ 
 
 // ckeditor
 Route::post('/upload-ckeditor', 'CkeditorController@upload_ckeditor');
@@ -52,7 +58,16 @@ Route::get('/upload-browser', 'CkeditorController@upload_browser');
 Route::get('/del-ckeditor/{filename}', 'CkeditorController@del_ckeditor');
 
 Route::get('/','FrontController@home')->name('home');
-Route::get('product-type','FrontController@product_type')->name('product_type');
+Route::get('category/{id}','FrontController@category')->name('category');
 Route::get('product','FrontController@product')->name('product');
+Route::get('product_detail/{id}','FrontController@product_detail')->name('product_detail');
 Route::get('contact','FrontController@contact')->name('contact');
 Route::get('about','FrontController@about')->name('about');
+
+Route::match(['get', 'post'], '/signup', 'FrontController@signup')->name('signup');
+Route::match(['get', 'post'], '/login', 'FrontController@login')->name('login');
+Route::get('/logout', 'FrontController@logout')->name('logout');
+
+Route::group(['middleware' => ['auth:customer']], function() {
+    Route::get('/cart/{product}/add', 'FrontController@add_cart')->name('shop.add_cart');
+});

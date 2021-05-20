@@ -17,6 +17,7 @@ class Product extends Model
         'sold_amount',
         'sku',
         'des',
+        'parameter',
         'summary',
         'status',
         'images',

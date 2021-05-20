@@ -111,6 +111,15 @@
          {
             config.height = '800px';
          };
+         CKEDITOR.replace( 'editor2',{
+            filebrowserImageUploadUrl: "{{ url('upload-ckeditor?_token='.csrf_token()) }}",
+            filebrowserBrowseUrl: "{{ url('upload-browser?_token='.csrf_token()) }}",
+            filebrowserUploadMethod: 'form',
+         });
+         CKEDITOR.editorConfig = function( config )
+         {
+            config.height = '800px';
+         };
       </script>
 
       <script>

@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->string('sold_amount',255)->default(0);//số lượng đã bán
             $table->string('sku',255)->nullable();//mã hàng lưu kho
             $table->text('des')->nullable();// mô tả
+            $table->text('parameter')->nullable();// cấu hình
             $table->string('summary',255)->nullable();// tóm tắt
             $table->string('status',255)->default(1);//trang thái
             $table->string('images',255)->nullable();

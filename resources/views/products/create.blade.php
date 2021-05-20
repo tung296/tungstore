@@ -133,6 +133,12 @@
    </div>
    <div class="col-xs-12 col-sm-12 col-md-12">
       <div class="form-group">
+         <strong>Parameter:</strong>
+         <textarea id="editor2" name="parameter" cols="80" rows="10"></textarea>
+      </div>
+   </div>
+   <div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="form-group">
          <strong>Des:</strong>
          <textarea id="editor1" name="des" cols="80" rows="10"></textarea>
       </div>

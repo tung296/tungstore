@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Category;
+use Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer('pages.layouts.header',function($view){
+            $categories = Category::all();
+            $view->with('categories',$categories);
+        });
+
+        view()->composer('*',function($view){
+            $auth = Auth::guard('customer')->user();
+            $view->with('user', $auth);
+        });
     }
 }
