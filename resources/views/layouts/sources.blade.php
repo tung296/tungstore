@@ -131,11 +131,12 @@
             "responsive": true,
          });
          $('.delper').click((e) => {
+            var parent = $(this);
             e.preventDefault(); 
             var $el = $(event.target); 
             var val = $el.data("id");
             let ur = $('#ur').val();
-            //console.log(val);
+            console.log(parent);
             swal({ 
                title: "Are you sure?",
                icon: "warning",
@@ -148,13 +149,20 @@
                      "_token": $('input[name=_token]').val(),
                      "id": val
                   };
-                  //console.log(data);
+                  console.log();
                   $.ajax({
+                     headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                     },
                      type: "DELETE",
-                     url: ur+val,
-                     data: data
+                     dataType: "json",
+                     url: ur,
+                     data: data,
+                     success: function(result){
+                        // parent.remove();
+                     }
                   });
-                  location.reload()
+                        location.reload();
                }
             });
          })

@@ -40,7 +40,16 @@
                 <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Edit</a>
             @endcan
             @can('role-delete')
-                <button class="btn btn-danger delper" data-toggle="tooltip" data-id="{{ $role->id }}" data-placement="top">Delete</button>
+            <a href="javascript:void(0);" class="ml-4 btn btn-danger" onclick="if (confirm('Are you sure?')) { $(this).find('form').submit();}">
+                <form
+                    action="{{ route('roles.destroy',['role'=>$role->id]) }}"
+                    method="post">
+                    @csrf
+                    <input type="hidden" name="_method" value="DELETE">
+                </form>
+                <i class="mdi mdi-delete-sweep text-danger"></i><span> delete </span>
+            </a>
+                <!-- <button class="btn btn-danger delper" data-toggle="tooltip" data-id="{{ $role->id }}" data-placement="top">Delete</button> -->
                 <!-- {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                 {!! Form::close() !!} -->

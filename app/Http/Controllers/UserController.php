@@ -21,8 +21,9 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
-        return view('users.index',compact('data'))
+        $data1 = User::orderBy('id','DESC')->paginate(5);
+        // dd($data[0]->name);
+        return view('users.index',compact('data1'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -76,8 +77,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
-        return view('users.show',compact('user'));
+        $user1 = User::find($id);
+        // dd($user);
+        return view('users.show',compact('user1'));
     }
 
 

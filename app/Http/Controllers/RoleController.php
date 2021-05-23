@@ -58,7 +58,8 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $arr = explode(" ", $request->input('arr'));
+        // dd($request->permission);
+        // $arr = explode(" ", $request->permission);
         $this->validate($request, [
             'name' => 'required|unique:roles,name|max:100',
             'permission' => 'required',
@@ -66,7 +67,7 @@ class RoleController extends Controller
 
 
         $role = Role::create(['name' => $request->input('name')]);
-        $role->give($arr);
+        $role->givePermissionTo($request->permission);
 
 
         return redirect()->route('roles.index')

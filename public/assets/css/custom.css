@@ -80,3 +80,6 @@ label {
     height: inherit;
     width: inherit;
 }
+a.color-full {
+    display: none !important;
+}

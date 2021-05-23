@@ -42,6 +42,7 @@ Route::prefix('admin')->group(function() {
         Route::resource('banners','BannerController');
         Route::resource('categories','CategoryController');
         Route::resource('permissions','PermissionController');
+        Route::resource('orders','OrderControlle');
         
         // Route::post('/export-csv','ExcelController@export_csv');
         // Route::post('/import-csv','ExcelController@import_csv');
@@ -66,8 +67,13 @@ Route::get('about','FrontController@about')->name('about');
 
 Route::match(['get', 'post'], '/signup', 'FrontController@signup')->name('signup');
 Route::match(['get', 'post'], '/login', 'FrontController@login')->name('login');
-Route::get('/logout', 'FrontController@logout')->name('logout');
+Route::get('/search', 'FrontController@search')->name('search');
 
 Route::group(['middleware' => ['auth:customer']], function() {
+    Route::match(['get', 'post'], '/order', 'FrontController@order')->name('order');
+    Route::get('/logout', 'FrontController@logout')->name('logout');
+    Route::get('/list', 'FrontController@list')->name('list');
+    Route::get('/delcart/{id}', 'FrontController@delcart')->name('delcart');
+    Route::get('/changeqty/{id}/{qty}', 'FrontController@changeqty')->name('changeqty');
     Route::get('/cart/{product}/add', 'FrontController@add_cart')->name('shop.add_cart');
 });

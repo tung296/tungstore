@@ -5,12 +5,12 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2>Banner Management</h2>
+            <h2>Product Management</h2>
         </div>
         <div class="pull-right">
-        @can('banner-create')
+        <!-- @can('banner-create')
             <a class="btn btn-success" href="{{ route('products.create') }}"> Create New Banner</a>
-            @endcan
+            @endcan -->
         </div>
     </div>
 </div>
@@ -49,7 +49,15 @@
                 <a class="btn btn-primary" href="{{ route('products.edit',$product->id) }}">Edit</a>
             @endcan
             @can('product-delete')
-            <button class="btn btn-danger delper" data-toggle="tooltip" data-id="{{ $product->id }}" data-placement="top">Delete</button>
+            <a href="javascript:void(0);" class="ml-4 btn btn-danger" onclick="if (confirm('Are you sure?')) { $(this).find('form').submit();}">
+                <form
+                    action="{{ route('products.destroy',['product'=>$product->id]) }}"
+                    method="post">
+                    @csrf
+                    <input type="hidden" name="_method" value="DELETE">
+                </form>
+                <i class="mdi mdi-delete-sweep text-danger"></i><span> delete </span>
+            </a>
             @endcan
         </td>
     </tr>

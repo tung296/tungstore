@@ -37,7 +37,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
             <strong>Permission:</strong>
             <br/> 
-            <table class="table table-bordered table-hover" id="dataTables">
+            <table class="table table-bordered table-hover" id="dataTables1">
                 <thead>
                     <th>Chọn</th>
                     <th>Tên quyền</th>

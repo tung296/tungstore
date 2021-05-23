@@ -1,5 +1,12 @@
 @extends('pages.layouts.index')
 @section('content')
+
+@if ($message = Session::get('success'))
+    <div class="alert alert-success text-center">
+        <p>{{ $message }}</p>
+    </div>
+@endif
+
 <div class="fullwidthbanner-container">
    <div class="fullwidthbanner">
       <div class="bannercontainer" >
@@ -45,7 +52,7 @@
                            <div class="single-item-body">
                               <p class="single-item-title">{{ $new_product->name }}</p>
                               <p class="single-item-price">
-                                 <span>{{ number_format($new_product->price) }}</span>
+                                 <span>{{ number_format($new_product->price) }} ₫</span>
                               </p>
                            </div>
                            <div class="single-item-caption">
@@ -77,7 +84,7 @@
                            <div class="single-item-body">
                               <p class="single-item-title">{{ $old_product->name }}</p>
                               <p class="single-item-price">
-                                 <span>{{ number_format($old_product->price) }}đ</span>
+                                 <span>{{ number_format($old_product->price) }} ₫</span>
                               </p>
                            </div>
                            <div class="single-item-caption">

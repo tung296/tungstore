@@ -11,11 +11,36 @@ class CategoryTableSeed extends Seeder
      */
     public function run()
     {
-        $name = Str::random(10);
+        // $name = Str::random(10);
         DB::table('categories')->insert([
-            'name' => $name,
-            'slug' => strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $name))),
-            'index' => mt_rand(1,10),
+            'name' => "Iphone",
+            'slug' => "iphone",
+            'index' => 1,
+        ]);
+        DB::table('categories')->insert([
+            'name' => "Samsung",
+            'slug' => "samsung",
+            'index' => 2,
+        ]);
+        DB::table('categories')->insert([
+            'name' => "Oppo",
+            'slug' => "oppo",
+            'index' => 3,
+        ]);
+        DB::table('categories')->insert([
+            'name' => "Vivo",
+            'slug' => "vivo",
+            'index' => 4,
+        ]);
+        DB::table('categories')->insert([
+            'name' => "Xiaomi",
+            'slug' => "xiaomi",
+            'index' => 5,
+        ]);
+        DB::table('categories')->insert([
+            'name' => "Phụ Kiện",
+            'slug' => "phụ_kien",
+            'index' => 99,
         ]);
     }
 }

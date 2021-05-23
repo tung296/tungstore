@@ -9,11 +9,11 @@
 				</div>
 				<div class="pull-right auto-width-right">
 					<ul class="top-details menu-beta l-inline">
-						<li><a href="#"><i class="fa fa-user"></i>{{ (isset($user)) ? $user->name : "Tài khoản"}}</a></li>
-						@if(!isset($user))
-							<li><a href="{{route('signup')}}">Đăng kí</a></li>
-							<li><a href="{{route('login')}}">Đăng nhập</a></li>
+						@if(!isset($data['user']))
+						<li><a href="{{route('signup')}}">Đăng kí</a></li>
+						<li><a href="{{route('login')}}">Đăng nhập</a></li>
 						@else
+						<li><a href="{{ route('list') }}"><i class="fa fa-user"></i>{{ (isset($data['user'])) ? $data['user']->name : "Tài khoản"}}</a></li>
 							<li><a href="{{route('logout')}}">Đăng xuất</a></li>
 						@endif
 					</ul>
@@ -24,62 +24,44 @@
 		<div class="header-body">
 			<div class="container beta-relative">
 				<div class="pull-left">
-					<a href="#" id="logo"><img src="source/assets/dest/images/logo-cake.png" width="200px" alt=""></a>
+					<a href="/" id="logo"><img src="source/assets/dest/images/logo-cake.png" width="200px" alt=""></a>
 				</div>
 				<div class="pull-right beta-components space-left ov">
 					<div class="space10">&nbsp;</div>
 					<div class="beta-comp">
-						<form role="search" method="get" id="searchform" action="/">
-					        <input type="text" value="" name="s" id="s" placeholder="Nhập từ khóa..." />
+						<form action="{{ route('search') }}" role="search" method="get" id="searchform" action="/">
+					        <input type="text" value="" name="key" id="s" placeholder="Nhập từ khóa..." />
 					        <button class="fa fa-search" type="submit" id="searchsubmit"></button>
 						</form>
 					</div>
 
 					<div class="beta-comp">
 						<div class="cart">
-							<div class="beta-select"><i class="fa fa-shopping-cart"></i> Giỏ hàng (Trống) <i class="fa fa-chevron-down"></i></div>
-							@if(isset($user))
+							<div class="beta-select"><i class="fa fa-shopping-cart"></i> Giỏ hàng {{ (isset($data['user'])) ? count($data['cart']) : "(Trống)" }}  <i class="fa fa-chevron-down"></i></div>
+							@if(isset($data['user']))
 							<div class="beta-dropdown cart-body">
+							@foreach($data['cart'] as $cart)
 								<div class="cart-item">
 									<div class="media">
-										<a class="pull-left" href="#"><img src="source/assets/dest/images/products/cart/1.png" alt=""></a>
+										<a class="pull-left" href="{{route('product_detail',$cart->product->id)}}"><img src="{{ URL::asset('storage/'.$cart->product->images) }}" alt=""></a>
 										<div class="media-body">
-											<span class="cart-item-title">Sample Woman Top</span>
-											<span class="cart-item-options">Size: XS; Colar: Navy</span>
-											<span class="cart-item-amount">1*<span>$49.50</span></span>
+											<span class="cart-item-title">{{ $cart->product->name }}</span>
+											<!-- <span class="cart-item-options">Size: XS; Colar: Navy</span> -->
+											<span class="cart-item-amount">{{ $cart->qty }} *<span>{{ number_format($cart->product->price) }} ₫</span></span>
 										</div>
 									</div>
-								</div>
-
-								<div class="cart-item">
-									<div class="media">
-										<a class="pull-left" href="#"><img src="source/assets/dest/images/products/cart/2.png" alt=""></a>
-										<div class="media-body">
-											<span class="cart-item-title">Sample Woman Top</span>
-											<span class="cart-item-options">Size: XS; Colar: Navy</span>
-											<span class="cart-item-amount">1*<span>$49.50</span></span>
-										</div>
+									<div class="delcart">
+										<a href="{{ route('delcart',$cart->id) }}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 									</div>
 								</div>
-
-								<div class="cart-item">
-									<div class="media">
-										<a class="pull-left" href="#"><img src="source/assets/dest/images/products/cart/3.png" alt=""></a>
-										<div class="media-body">
-											<span class="cart-item-title">Sample Woman Top</span>
-											<span class="cart-item-options">Size: XS; Colar: Navy</span>
-											<span class="cart-item-amount">1*<span>$49.50</span></span>
-										</div>
-									</div>
-								</div>
-
+							@endforeach
 								<div class="cart-caption">
-									<div class="cart-total text-right">Tổng tiền: <span class="cart-total-value">$34.55</span></div>
+									<div class="cart-total text-right">Tổng tiền: <span class="cart-total-value">{{ number_format($data['total']) }} ₫</span></div>
 									<div class="clearfix"></div>
 
 									<div class="center">
 										<div class="space10">&nbsp;</div>
-										<a href="checkout.html" class="beta-btn primary text-center">Đặt hàng <i class="fa fa-chevron-right"></i></a>
+										<a href="{{ route('order')}}" class="beta-btn primary text-center">Đặt hàng <i class="fa fa-chevron-right"></i></a>
 									</div>
 								</div>
 							</div>
@@ -97,7 +79,7 @@
 				<nav class="main-menu">
 					<ul class="l-inline ov">
 						<li class="dis"><a href="{{route('home')}}">Home</a></li>
-						<li ><a class="dis" href="">Product</a>
+						<li class="dis"><a href="#">Product</a>
 							<ul class="sub-menu">
 							@foreach($categories as $category)
 								<li><a href="{{route('category',$category->id)}}">{{ $category->name }}</a></li>
