@@ -1,18 +1,18 @@
 @extends('layouts.index')
 @section('content')
 <div class="row content-body">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
        <div class="iq-card iq-card-block iq-card-stretch iq-card-height iq-bg-danger">
           <div class="iq-card-body box iq-box-relative">
              <div class="box-image float-right">
                 <img class="rounded img-fluid" src="assets/images/page-img/37.png" alt="profile">
              </div>
-             <h4 class="d-block mb-3 text-black">Welcome back John</h4>
-             <p class="d-inline-block welcome-text text-black">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vulputate facilisis velit, vitae fermentum nulla ultrices et.</p>
+             <h4 class="d-block mb-3 text-black">Welcome back {{ Auth::guard('web')->user()->name }}</h4>
+             <p class="d-inline-block welcome-text text-black">Pay attention to the orders that need to be fulfilled..</p>
           </div>
        </div>
     </div>
-    <div class="col-lg-4">
+    <!-- <div class="col-lg-4">
        <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
           <div class="iq-card-body">
              <ul class="suggestions-lists m-0 p-0">
@@ -59,8 +59,8 @@
              </ul>
           </div>
        </div>
-    </div>
-    <div class="col-lg-8 row m-0 p-0">
+    </div> -->
+    <div class="col-lg-12 row m-0 p-0">
        <div class="col-sm-6 col-md-6 col-lg-3">
           <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
              <div class="iq-card-body">
@@ -68,14 +68,14 @@
                    <i class="ri-cpu-line"></i>
                 </div>
                 <div class="mt-4">
-                   <h5 class="text-black text-uppercase">CPU</h5>
-                   <h3 class="d-flex text-primary"> 4.8%<i class="ri-arrow-up-line"></i></h3>
+                   <h5 class="text-black text-uppercase">Total order</h5>
+                   <h3 class="d-flex text-primary">{{ count($orders) }} </h3>
                 </div>
-                <p class="mb-0 mt-1">Avg +65%</p>
+                <p class="mb-0 mt-1">100%</p>
                 <div class="mt-3">
                    <div class="iq-progress-bar-linear d-inline-block mt-1 w-100">
                       <div class="iq-progress-bar">
-                         <span class="bg-primary" data-percent="65"></span>
+                         <span class="bg-primary" data-percent="100"></span>
                       </div>
                    </div>
                 </div>
@@ -89,14 +89,14 @@
                    <i class="ri-window-line"></i>
                 </div>
                 <div class="mt-4">
-                   <h5 class="text-black text-uppercase">RAM</h5>
-                   <h3 class="d-flex text-danger"> 4.2%<i class="ri-arrow-down-line"></i></h3>
+                   <h5 class="text-black text-uppercase">Order successful</h5>
+                   <h3 class="d-flex text-danger"> {{ count($orders3) }}</h3>
                 </div>
-                <p class="mb-0 mt-1">Avg +85%</p>
+                <p class="mb-0 mt-1">{{ round((count($orders3)/count($orders))*100,2) }} %</p>
                 <div class="mt-3">
                    <div class="iq-progress-bar-linear d-inline-block mt-1 w-100">
                       <div class="iq-progress-bar">
-                         <span class="bg-danger" data-percent="85"></span>
+                         <span class="bg-danger" data-percent="{{ round((count($orders3)/count($orders))*100,2) }}"></span>
                       </div>
                    </div>
                 </div>
@@ -110,14 +110,14 @@
                    <i class="ri-u-disk-line"></i>
                 </div>
                 <div class="mt-4">
-                   <h5 class="text-black text-uppercase">DISK</h5>
-                   <h3 class="d-flex text-primary"> 5.8GB<i class="ri-arrow-up-line"></i></h3>
+                   <h5 class="text-black text-uppercase">Unapproved order</h5>
+                   <h3 class="d-flex text-primary"> {{ count($orders1) }}</h3>
                 </div>
-                <p class="mb-0 mt-1">Avg +36%</p>
+                <p class="mb-0 mt-1">{{ round((count($orders1)/count($orders))*100,2) }} %</p>
                 <div class="mt-3">
                    <div class="iq-progress-bar-linear d-inline-block mt-1 w-100">
                       <div class="iq-progress-bar">
-                         <span class="bg-primary" data-percent="36"></span>
+                         <span class="bg-primary" data-percent="{{ round((count($orders3)/count($orders))*100,2) }}"></span>
                       </div>
                    </div>
                 </div>
@@ -131,14 +131,14 @@
                    <i class="ri-global-line"></i>
                 </div>
                 <div class="mt-4">
-                   <h5 class="text-black text-uppercase">SERVICES</h5>
-                   <h3 class="d-flex text-danger"> 3.5KB<i class="ri-arrow-down-line"></i></h3>
+                   <h5 class="text-black text-uppercase">Profit</h5>
+                   <h3 class="d-flex text-danger">{{ number_format($interest) }} ₫</h3>
                 </div>
-                <p class="mb-0 mt-1">Avg +48%</p>
+                <p class="mb-0 mt-1">{{ round((count($orders3)/count($orders))*100,2) }} %</p>
                 <div class="mt-3">
                    <div class="iq-progress-bar-linear d-inline-block mt-1 w-100">
                       <div class="iq-progress-bar">
-                         <span class="bg-danger" data-percent="48"></span>
+                         <span class="bg-danger" data-percent="{{ round((count($orders3)/count($orders))*100,2) }}"></span>
                       </div>
                    </div>
                 </div>
@@ -146,7 +146,7 @@
           </div>
        </div>
     </div>
-    <div class="col-lg-4">
+    <!-- <div class="col-lg-4">
        <div class="iq-card bg-danger iq-card-block iq-card-stretch iq-card-height-half">
           <div class="iq-card-body box iq-box-relative">
              <div class="d-flex flex-wrap justify-content-between align-items-center">
@@ -165,9 +165,9 @@
                    <h5 class="d-block mt-2 text-white font-weight-500">Storage<br> Usage</h5>
                 </div>
                 <div class="col-5 pr-0 right-border-block position-relative">
-                   <!-- <div class="avatar-30 text-center rounded-circle iq-bg-danger" data-wow-delay="0.2s">
+                   <div class="avatar-30 text-center rounded-circle iq-bg-danger" data-wow-delay="0.2s">
                       <span class="font-size-14 align-item-center"><i class="ri-account-box-line"></i></span>
-                   </div> -->
+                   </div>
                    <h5 class="text-white mt-2">594875625</h5>
                    <span class="text-white">Online Users</span>
                 </div>
@@ -209,8 +209,8 @@
              </div>
           </div>
        </div>
-    </div>
-    <div class="col-lg-8">
+    </div> -->
+    <!-- <div class="col-lg-12">
        <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
           <div class="iq-card-header d-flex justify-content-between">
              <div class="iq-header-title">
@@ -235,8 +235,8 @@
              <div id="report-chart-02" style="min-height: 150px;"></div>
           </div>
        </div>
-    </div>
-    <div class="col-lg-4">
+    </div> -->
+    <!-- <div class="col-lg-4">
        <div class="iq-card iq-card-block iq-card-stretch iq-card-height bg-primary rounded background-image-overlap">
           <div class="iq-card-body">
              <div class="d-flex align-items-center mb-3">
@@ -249,8 +249,8 @@
              <button type="submit" class="btn w-100 btn-white mt-4 text-primary viwe-more">View More</button>
           </div>
        </div>
-    </div>
-    <div class="col-lg-8">
+    </div> -->
+    <!-- <div class="col-lg-8">
        <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
           <div class="iq-card-header d-flex justify-content-between">
              <div class="iq-header-title">
@@ -273,8 +273,8 @@
              <div id="iq-income-chart"></div>
           </div>
        </div>
-    </div>
-    <div class="col-lg-4">
+    </div> -->
+    <!-- <div class="col-lg-4">
        <div class="iq-card">
           <div class="iq-card-body box iq-box-relative rounded">
              <div class="d-flex align-items-center">
@@ -316,8 +316,8 @@
              <div id="chart-9"></div>
           </div>
        </div>
-    </div>
-    <div class="col-lg-6 row m-0 p-0">
+    </div> -->
+    <!-- <div class="col-lg-6 row m-0 p-0">
        <div class="col-sm-6">
           <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
              <div class="iq-card-header d-flex justify-content-between">
@@ -389,8 +389,8 @@
              </div>
           </div>
        </div>
-    </div>
-    <div class="col-lg-6">
+    </div> -->
+    <div class="col-lg-12">
        <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
           <div class="iq-card-header d-flex justify-content-between">
              <div class="iq-header-title">
@@ -438,7 +438,7 @@
                       </tr>
                    </thead>
                    <tbody>
-                      <tr>
+                      <!-- <tr>
                          <td>
                             <div class="avatar-40 text-center rounded-circle iq-bg-danger position-relative">
                                <span class="font-size-20 align-item-center"><i class="fa fa-user" aria-hidden="true"></i><span class="bg-success dots"></span></span>
@@ -525,7 +525,8 @@
                             <i class="ri-more-fill"></i>
                             </span>
                          </td>
-                      </tr>
+                      </tr> -->
+                      @foreach($orders as $item)
                       <tr>
                          <td>
                             <div class="avatar-40 text-center rounded-circle iq-bg-danger position-relative">
@@ -533,21 +534,22 @@
                             </div>
                          </td>
                          <td>
-                            <h6>Bulesta Karolin</h6>
-                            <span class="text-body font-weight-400">8GB/80GB/SF02-Ubuntu Iconic- jfkakf-daksl...</span>
+                            <h6>{{ $item->name }}</h6>
+                            <!-- <span class="text-body font-weight-400"></span> -->
                          </td>
-                         <td>192.168.130.26</td>
-                         <td>6 Months ago</td>
+                         <td>{{ $item->phone }}</td>
                          <td>
-                            <div class="text-danger">Rodrigez</div>
-                         </td>
-                         <td>Karilorni</td>
-                         <td>
+                            <div class="text-danger">{{ $item->total_money }}</div>
+                           </td>
+                        <td>{{ $item->status }}</td>
+                        <td>{{ $item->payment }}</td>
+                           <!-- <td>
                             <span class="text-black font-size-24" id="dropdownMenuButton7">
                             <i class="ri-more-fill"></i>
                             </span>
-                         </td>
+                         </td> -->
                       </tr>
+                      @endforeach
                    </tbody>
                 </table>
              </div>
