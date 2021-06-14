@@ -12,9 +12,11 @@
 						@if(!isset($data['user']))
 						<li><a href="{{route('signup')}}">Đăng kí</a></li>
 						<li><a href="{{route('login')}}">Đăng nhập</a></li>
+						<li><a href="{{route('forgot_password')}}">Quên Mật khẩu</a></li>
 						@else
-						<li><a href="{{ route('list') }}"><i class="fa fa-user"></i>{{ (isset($data['user'])) ? $data['user']->name : "Tài khoản"}}</a></li>
+						<li><a href="{{ route('info') }}"><i class="fa fa-user"></i>{{ (isset($data['user'])) ? $data['user']->name : "Tài khoản"}}</a></li>
 							<li><a href="{{route('logout')}}">Đăng xuất</a></li>
+							<li><a href="{{ route('list') }}">Đơn hàng</a></li>
 						@endif
 					</ul>
 				</div>
@@ -78,16 +80,16 @@
 				<div class="visible-xs clearfix"></div>
 				<nav class="main-menu">
 					<ul class="l-inline ov">
-						<li class="dis"><a href="{{route('home')}}">Home</a></li>
-						<li class="dis"><a href="#">Product</a>
+						<li class="dis"><a href="{{route('home')}}">Trang chủ</a></li>
+						<li class="dis"><a href="#">Sản phẩm</a>
 							<ul class="sub-menu">
 							@foreach($categories as $category)
 								<li><a href="{{route('category',$category->id)}}">{{ $category->name }}</a></li>
 							@endforeach
 							</ul>
 						</li>
-						<li class="dis"><a href="{{route('about')}}">About</a></li>
-						<li class="dis"><a href="{{route('contact')}}">Contac</a></li>
+						<li class="dis"><a href="{{route('about')}}">Thông tin</a></li>
+						<li class="dis"><a href="{{route('contact')}}">Liên hệ</a></li>
 					</ul>
 					<div class="clearfix"></div>
 				</nav>

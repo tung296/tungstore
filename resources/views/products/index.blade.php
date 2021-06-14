@@ -8,9 +8,9 @@
             <h2>Product Management</h2>
         </div>
         <div class="pull-right">
-        <!-- @can('banner-create')
-            <a class="btn btn-success" href="{{ route('products.create') }}"> Create New Banner</a>
-            @endcan -->
+        @can('product-create')
+            <a class="btn btn-success" href="{{ route('products.create') }}"> Create New Product</a>
+            @endcan
         </div>
     </div>
 </div>

@@ -11,7 +11,7 @@
 				</div>
 				<div class="col-sm-3">
 					<div class="widget">
-						<h4 class="widget-title">About</h4>
+						<h4 class="widget-title">Thông tin</h4>
 						<div>
 						<p class="text-justify">Tùng Shop thành lập năm 2019. Chúng tôi chuyên cung cấp các sản phẩm điện thoại di động Cũ - Mới. Nhập đặt hàng đối với những sản phẩm sắp ra mắt</p>
 						</div>
@@ -20,7 +20,7 @@
 				<div class="col-sm-3">
 				 <div class="col-sm-10">
 					<div class="widget">
-						<h4 class="widget-title">Contact Us</h4>
+						<h4 class="widget-title">Liên hệ</h4>
 						<div>
 							<div class="contact-info1">
 								<!-- <i class="fa fa-map-marker"></i> -->

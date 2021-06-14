@@ -10,7 +10,7 @@
 
 <p>Khi mua h&agrave;ng online, bạn dễ d&agrave;ng so s&aacute;nh v&agrave; đưa ra lựa chọn sản phẩm ph&ugrave; hợp nhất. Đ&ocirc;i khi bạn gặp phải những người b&aacute;n h&agrave;ng kh&oacute; t&iacute;nh tại một số địa điểm b&aacute;n h&agrave;ng. Mua sắm online th&igrave; kh&aacute;ch h&agrave;ng chẳng phải để &yacute; đến chuyện ấy nữa.</p>
 
-<p style="text-align:center"><img alt="" src="http://27.72.126.111:83/storage/ckeditor/logo copypng_1621796796.png" style="height:163px; width:516px" /></p>
+<p style="text-align:center"><img alt="logo.png" src="assets/images/logo.png" style="height:163px; width:516px" /></p>
 
 <p>Với phương ch&acirc;m &quot; Sự h&agrave;i l&ograve;ng của c&aacute;c bạn l&agrave; hạnh ph&uacute;c của ch&uacute;ng t&ocirc;i&quot;, Tung Store tự tin n&oacute;i rằng sẽ khiến bạn h&agrave;i l&ograve;ng nhất c&oacute; thể. C&ugrave;ng mua cho bản th&acirc;n m&igrave;nh, gia&nbsp;đ&igrave;nh, bạn b&egrave; những chiếc&nbsp;điện thoai, phụ kiện&nbsp;điện thoại chất lượng nhất m&agrave; gi&aacute; cả lại phải chăng nhất n&agrave;o.</p>
 

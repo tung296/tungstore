@@ -92,11 +92,11 @@
                    <h5 class="text-black text-uppercase">Order successful</h5>
                    <h3 class="d-flex text-danger"> {{ count($orders3) }}</h3>
                 </div>
-                <p class="mb-0 mt-1">{{ round((count($orders3)/count($orders))*100,2) }} %</p>
+                <p class="mb-0 mt-1">{{ count($orders)!=0?round((count($orders3)/count($orders))*100,2):0 }} %</p>
                 <div class="mt-3">
                    <div class="iq-progress-bar-linear d-inline-block mt-1 w-100">
                       <div class="iq-progress-bar">
-                         <span class="bg-danger" data-percent="{{ round((count($orders3)/count($orders))*100,2) }}"></span>
+                         <span class="bg-danger" data-percent="{{ count($orders)!=0?round((count($orders3)/count($orders))*100,2):0 }}"></span>
                       </div>
                    </div>
                 </div>
@@ -113,11 +113,11 @@
                    <h5 class="text-black text-uppercase">Unapproved order</h5>
                    <h3 class="d-flex text-primary"> {{ count($orders1) }}</h3>
                 </div>
-                <p class="mb-0 mt-1">{{ round((count($orders1)/count($orders))*100,2) }} %</p>
+                <p class="mb-0 mt-1">{{ count($orders)!=0?round((count($orders1)/count($orders))*100,2):0 }} %</p>
                 <div class="mt-3">
                    <div class="iq-progress-bar-linear d-inline-block mt-1 w-100">
                       <div class="iq-progress-bar">
-                         <span class="bg-primary" data-percent="{{ round((count($orders3)/count($orders))*100,2) }}"></span>
+                         <span class="bg-primary" data-percent="{{ count($orders)!=0?round((count($orders1)/count($orders))*100,2):0 }}"></span>
                       </div>
                    </div>
                 </div>
@@ -134,11 +134,11 @@
                    <h5 class="text-black text-uppercase">Profit</h5>
                    <h3 class="d-flex text-danger">{{ number_format($interest) }} ₫</h3>
                 </div>
-                <p class="mb-0 mt-1">{{ round((count($orders3)/count($orders))*100,2) }} %</p>
+                <p class="mb-0 mt-1">{{ count($orders)!=0?round((count($orders3)/count($orders))*100,2):0 }} %</p>
                 <div class="mt-3">
                    <div class="iq-progress-bar-linear d-inline-block mt-1 w-100">
                       <div class="iq-progress-bar">
-                         <span class="bg-danger" data-percent="{{ round((count($orders3)/count($orders))*100,2) }}"></span>
+                         <span class="bg-danger" data-percent="{{ count($orders)!=0?round((count($orders3)/count($orders))*100,2):0 }}"></span>
                       </div>
                    </div>
                 </div>

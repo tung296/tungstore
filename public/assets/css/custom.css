@@ -83,3 +83,11 @@ label {
 a.color-full {
     display: none !important;
 }
+.table tr td:last-child {
+    display: flex;
+    justify-content: space-around;
+}
+div#complete {
+    background: #b8f3a9;
+    margin-top: 1%;
+}

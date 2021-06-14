@@ -79,9 +79,13 @@ i.fa.fa-trash-o {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 350px;
+    height: 375px;
     padding-bottom: 10px;
     box-shadow: 0 0 12px 0px #00000040;
+}
+.single-item-body {
+    margin-bottom: 5%;
+    line-height: 1.6rem;
 }
 .single-item-caption {
     margin: 0 auto;
@@ -107,6 +111,30 @@ i.fa.fa-trash-o {
 }
 .container.about p {
     line-height: 1.6rem;
+}
+.add-cart-color{
+    background-color: #ffaf30;
+    border-color: #ffaf30;
+}
+#tab-description p {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    padding: 1% 0px;
+    color: #606366;
+}
+.single-item-desc p {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    font-weight: 500;
+}
+p.single-item-title {
+    font-size: 1.6rem;
+    padding-bottom: 5%;
+    line-height: 1.7rem;
+}
+p.single-item-price {
+    font-size: 1.6rem;
+    font-weight: 800;
 }
 
 

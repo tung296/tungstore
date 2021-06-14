@@ -28,7 +28,7 @@ class HomeController extends Controller
         $month = date('m');
         $orders = Order::whereMonth('created_at', $month)->orderBy('id','DESC')->get();
         $orders1 = Order::whereMonth('created_at', $month)->where('status',1)->orderBy('id','DESC')->get();
-        $orders3 = Order::whereMonth('created_at', $month)->where('status',2)->orderBy('id','DESC')->get();
+        $orders3 = Order::whereMonth('created_at', $month)->where('status',3)->orderBy('id','DESC')->get();
         $interest = 0;
         foreach($orders3 as $order3){
             foreach($order3->order_detail as $order_details){

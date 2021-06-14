@@ -44,6 +44,12 @@
 
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-sm-4"></div>
+						<div class="col-sm-8">
+						<a href="{{ route('shop.add_cart', ['product' => $product->id]) }}" class="btn btn-primary btn-lg btn-block add-cart-color" role="button" aria-pressed="true">Thêm vào giỏ hàng</a>
+					</div>
+					</div>
 
 					<div class="space40">&nbsp;</div>
 					<div class="woocommerce-tabs">

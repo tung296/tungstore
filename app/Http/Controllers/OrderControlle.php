@@ -13,7 +13,7 @@ class OrderControlle extends Controller
      */
     public function index(Request $request)
     {
-        $orders = Order::orderBy('status','ASC')->orderBy('id','DESC')->paginate(10);
+        $orders = Order::orderBy('id','DESC')->orderBy('status','ASC')->paginate(10);
         return view('orders.index',compact('orders'))
             ->with('i', ($request->input('page', 1) - 1) * 10);
     }

@@ -2,9 +2,9 @@
    <div class="iq-sidebar-logo d-flex justify-content-between">
       <a href="index.html" class="header-logo">
          <img src="assets/images/logo.png" class="img-fluid rounded-normal" alt="">
-         <div class="logo-title">
+         <!-- <div class="logo-title">
             <span class="text-danger text-uppercase">Server<span class="text-primary ml-1">360</span></span>
-         </div>
+         </div> -->
       </a>
       <div class="iq-menu-bt-sidebar">
          <div class="iq-menu-bt align-self-center">

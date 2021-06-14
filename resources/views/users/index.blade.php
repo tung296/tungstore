@@ -39,10 +39,12 @@
         <td>
             <a class="btn btn-info" href="{{ route('users.show',['user'=>$user1->id]) }}">Show</a>
             @can('user-edit')
+            @if($user1->type==1)
             <a class="btn btn-primary" href="{{ route('users.edit',['user'=>$user1->id]) }}">Edit</a>
+            @endif
             @endcan
             @can('user-delete')
-            <a href="javascript:void(0);" class="ml-4 btn btn-danger" onclick="if (confirm('Are you sure?')) { $(this).find('form').submit();}">
+            <a href="javascript:void(0);" class="btn btn-danger" onclick="if (confirm('Are you sure?')) { $(this).find('form').submit();}">
                 <form
                     action="{{ route('users.destroy',['user'=>$user1->id]) }}"
                     method="post">

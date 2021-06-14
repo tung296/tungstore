@@ -12,6 +12,10 @@ use App\Order;
 use App\Oder_detail;
 use Illuminate\Support\Facades\Validator;
 use Auth;
+use Illuminate\Support\Str;
+use Mail;
+use Hash;
+
 
 class FrontController extends Controller
 {
@@ -112,7 +116,7 @@ class FrontController extends Controller
         } else {
             $this -> validate($request, [
                 'password' => 'required|min:6|max:30',
-                'email' => 'required|email',
+                'email' => 'required|email|min:0|max:100',
             ], [
                 'email.required' => 'Bạn chưa nhập email',
                 'email.email' => 'Email không đúng định dạng.',
@@ -125,6 +129,56 @@ class FrontController extends Controller
             if(Auth::guard('customer')->attempt($request->only(['email', 'password']))){
                 return redirect()->intended('/');
             } else return redirect()->route('login')->with('thongbao', 'Tài khoản mật khẩu không chính xác');
+        }
+    }
+
+    public function info(Request $request)
+    {
+        if($request->getMethod() == 'GET') {
+            if($user = Auth::guard('customer')->user()) {
+                return view('pages.auth.info',compact('user'));
+            }
+            return view('pages.auth.login');
+        } else {
+            
+            $this -> validate($request, [
+                'old_password' => 'required|min:6|max:30',
+                'email' => 'required|email|min:0|max:100',
+                'phone' => 'required',
+            ], [
+                'email.required' => 'Bạn chưa nhập email',
+                'phone.required' => 'Bạn chưa nhập số điện thoại',
+                'email.email' => 'Email không đúng định dạng.',
+                'email.min' => 'Mật khẩu từ 0 đến 100 kí tự',
+                'email.max' => 'Mật Khẩu từ 0 đến 100 kí tự',
+                'old_password.required' => 'Bạn chưa nhập mật khẩu',
+                'old_password.min' => 'Mật khẩu từ 6 đến 30 kí tự',
+                'old_password.max' => 'Mật Khẩu từ 6 đến 30 kí tự',
+            ]);
+            $fi = User::where("email", $request->email)->where("type", 2)->first();
+            if(!$fi) {
+                return back()->with('error', 'Email không tồn tại');
+            }
+            if (!Hash::check($request->old_password, $fi->password)) {
+                return back()->with('error', 'Mật khẩu không chính xác');
+            }
+            $password = $fi->password;
+            if($request->new_password){
+                $this -> validate($request, [
+                    'new_password' => 'min:6|max:30',
+                ],
+                [
+                    'new_password.min' => 'Mật khẩu từ 6 đến 30 kí tự',
+                    'new_password.max' => 'Mật Khẩu từ 6 đến 30 kí tự',
+                ]);
+                $password = bcrypt($request->new_password);
+            }
+
+                $fi->password = $password;
+                $fi->name = $request->name;
+                $fi->phone = $request->phone;
+                $fi->save();
+                return redirect()->route('home')->with('success', 'Thay đổi thành công');
         }
     }
 
@@ -187,15 +241,14 @@ class FrontController extends Controller
             $data['total']=$total;
             return view('pages.order.index',compact('user','data'));
         } else {
-            // dd($request->all());
             $this -> validate($request, [
                 'adress' => 'required|min:1|max:255',
                 'phone' => 'required|min:9|max:10',
-                'payment' => 'required|in:1',
+                'payment' => 'required|in:1,2',
                 'cart' => ['required'],
                 'qty' => 'numeric|min:0|max:1000'
             ],[
-                'payment.in' => 'Chức năng thanh toán online đang phát triển',
+                // 'payment.in' => 'Chức năng thanh toán online đang phát triển',
             ]);
 
             if($request->payment==1){
@@ -206,22 +259,24 @@ class FrontController extends Controller
                     'name'=>$request->name,
                     'phone'=>$request->phone,
                     'adress'=>$request->adress,
-                    'note'=>$request->note,
+                    // 'note'=>$request->note,
                     'total_money'=>$request->total_money,
                 ]);
                 foreach($request->cart as $item){
                     $order_deteil = Oder_detail::create([
                         'order_id'=>$order->id,
                         'product_id'=>Cart::find($item)->product->id,
-                        'qty'=>Cart::find($item)->product->qty,
+                        'qty'=>Cart::find($item)->qty,
                         Cart::find($item)->delete()
                     ]);
                 }
-                return redirect()->route('home')
-                        ->with('success','Đặt hàng thành công');
-            }else{
-                return redirect()->route('home')
-                        ->with('success','Đặt hàng thành công');
+                return view('pages.complete.index');
+            }
+            if($request->payment==2){
+                session_start();
+                $_SESSION['order'] = $request->all();
+                $total_money=$request->total_money;
+                return view('pages.vnpay.index',compact('total_money'));
             }
         }
     }
@@ -249,5 +304,119 @@ class FrontController extends Controller
     {
         $orders = Auth::guard('customer')->user()->order;
         return view('pages.order.list',compact('orders'));
+    }
+
+
+    public function createPayment(Request $request)
+    {
+
+        // dd($request->toArray());
+        $vnp_TxnRef = $random = Str::random(10);
+        $vnp_OrderInfo = $request->order_desc;
+        $vnp_OrderType = 'billpaymentphonetungstore';
+        $vnp_Amount = (int)str_replace(',', '', $request->amount) * 100;
+        $vnp_Locale = 'vn';
+        $vnp_BankCode = $request->bank_code;
+        $vnp_IpAddr = request()->ip();
+
+        $inputData = array(
+            "vnp_Version" => "2.0.0",
+            "vnp_TmnCode" => env('VNP_TMN_CODE'),
+            "vnp_Amount" => $vnp_Amount,
+            "vnp_Command" => "pay",
+            "vnp_CreateDate" => date('YmdHis'),
+            "vnp_CurrCode" => "VND",
+            "vnp_IpAddr" => $vnp_IpAddr,
+            "vnp_Locale" => $vnp_Locale,
+            "vnp_OrderInfo" => $vnp_OrderInfo,
+            "vnp_OrderType" => $vnp_OrderType,
+            "vnp_ReturnUrl" => route('vnpay.return'),
+            "vnp_TxnRef" => $vnp_TxnRef,
+        );
+
+        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+            $inputData['vnp_BankCode'] = $vnp_BankCode;
+        }
+        ksort($inputData);
+        $query = "";
+        $i = 0;
+        $hashdata = "";
+        foreach ($inputData as $key => $value) {
+            if ($i == 1) {
+                $hashdata .= '&' . $key . "=" . $value;
+            } else {
+                $hashdata .= $key . "=" . $value;
+                $i = 1;
+            }
+            $query .= urlencode($key) . "=" . urlencode($value) . '&';
+        }
+
+        $vnp_Url = env('VNP_URL') . "?" . $query;
+        if (env('VNP_HASH_SECRET')) {
+        // $vnpSecureHash = md5($vnp_HashSecret . $hashdata);
+            $vnpSecureHash = hash('sha256', env('VNP_HASH_SECRET') . $hashdata);
+            $vnp_Url .= 'vnp_SecureHashType=SHA256&vnp_SecureHash=' . $vnpSecureHash;
+        }
+        
+        return redirect($vnp_Url);
+
+    }
+
+    public function returnPayment(Request $request)
+    {
+        session_start();
+        if(isset($_SESSION['order'])){
+            $session_order = json_decode(json_encode($_SESSION['order']));
+            if($request->vnp_ResponseCode==00){
+                $order = Order::create([
+                    'user_id'=>$session_order->id,
+                    'payment'=>$session_order->payment,
+                    'status'=>1,
+                    'name'=>$session_order->name,
+                    'phone'=>$session_order->phone,
+                    'adress'=>$session_order->adress,
+                    // 'note'=>$session_order->note,
+                    'total_money'=>$session_order->total_money,
+                    ]);
+                    foreach($session_order->cart as $item){
+                        // dd(Cart::find($item));
+                        // dd($item);
+                        // dd(Cart::find($item)->product->qty);
+                        $order_deteil = Oder_detail::create([
+                            'order_id'=>$order->id,
+                            'product_id'=>Cart::find($item)->product->id,
+                            'qty'=>Cart::find($item)->qty,
+                            Cart::find($item)->delete()
+                            ]);
+                            unset($_SESSION['order']);
+                        }
+                    return view('pages.complete.index');
+            }else{
+                return redirect()->route('home')
+                    ->with('error','Thanh toán thất bại');
+            }
+        }
+        return redirect()->route('home')
+                    ->with('error','Đặt hàng thất bại');
+    }
+
+    public function forgot_password(Request $request)
+    {
+        if($request->getMethod() == 'GET') {
+            return view('pages.auth.forgot_password');
+        } else {
+            $fi = User::where("email", $request->email)->where("type", 2)->first();
+            if(!$fi) {
+                return back()->with('error', 'Email không tồn tại');
+            }
+            $rand = RAND();
+            Mail::send('mail_laymk', compact('rand'), function($message) use ($request) {
+                $message->to($request->email, 'Member')->subject('Lấy mật khẩu');
+                $message->from('DTC165D4802010266@ictu.edu.vn','Admin');
+            });
+            $fi->password = bcrypt($rand);
+            $fi->save();
+            return back()->with('thongbao', 'Gửi thành công, vui lòng check mail');
+        }
     }
 }
