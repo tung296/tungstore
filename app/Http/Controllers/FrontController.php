@@ -267,8 +267,8 @@ class FrontController extends Controller
                         'order_id'=>$order->id,
                         'product_id'=>Cart::find($item)->product->id,
                         'qty'=>Cart::find($item)->qty,
-                        Cart::find($item)->delete()
                     ]);
+                    Cart::find($item)->delete();
                 }
                 return view('pages.complete.index');
             }
