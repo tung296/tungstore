@@ -12,7 +12,7 @@
             <form id="form_file" action="{{ route('media.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <input type="file" name="image" id="input_file">
-                <!-- <input type="submit" value="Upload"> -->
+                <input type="submit" value="Upload">
             </form>
             @endcan
         </div>
@@ -48,29 +48,40 @@
 @endif
 <script>
     $(document).ready(function(){
-        $('#input_file').change(function(){
-            var form = document.querySelector('#form_file');
-            var data = new FormData(form);
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: $('#form').attr("action"),
-                type: 'POST',
-                dataType: "JSON",
-                data: data,
-                processData: false,
-                contentType: false,
-                success: function (data, status)
-                {
-                    location.reload();
-                },
-                error: function (xhr, desc, err)
-                {
-                    location.reload();
-                }
-            });        
-        });
+        // $('#input_file').change(function(){
+        //     var form = document.querySelector('#form_file');
+        //     var data = new FormData(form);
+        //     $.ajax({
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         },
+        //         url: $('#form').attr("action"),
+        //         type: 'POST',
+        //         dataType: "JSON",
+        //         data: data,
+        //         processData: false,
+        //         contentType: false,
+        //         success: function (data, status)
+        //         {
+        //             console.log('ok upload image');
+
+        //             if(data=="success"){
+        //                 // element.remove();
+        //                 $('#alert_success').css("display", "block");
+        //                 $('#alert_error').css("display", "none");
+        //                 // alert(data);
+        //             }
+        //             setTimeout(() => {
+        //                 // location.reload();    
+        //             }, 1000);
+        //         },
+        //         error: function (xhr, desc, err)
+        //         {
+        //             console.log('err upload image');
+        //             // location.reload();
+        //         }
+        //     });        
+        // });
       $('.btn_delete').on('click',function(){
           var element = $(this).parent();
        var fileName = $(this).find("img").attr("title");
