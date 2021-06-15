@@ -19,12 +19,12 @@
       <nav class="iq-sidebar-menu">
          <ul id="iq-sidebar-toggle" class="iq-menu">
             <li class="active active-menu">
-               <a href="#dashboard" class="iq-waves-effect" data-toggle="collapse" aria-expanded="true"><span class="ripple rippleEffect"></span><i class="las la-home iq-arrow-left"></i><span>Dashboard</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-               <ul id="dashboard" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+               <a href="/admin" class="iq-waves-effect" ><span class="ripple rippleEffect"></span><i class="las la-home iq-arrow-left"></i><span>Dashboard</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+               <!-- <ul id="dashboard" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
                   <li class="active"><a href="index.html"><i class="las la-house-damage"></i>Server Monitoring</a></li>
                   <li><a href="dashboard-1.html"><i class="las la-landmark"></i>Website Monitoring</a></li>
                   <li><a href="dashboard-2.html"><i class="las la-warehouse"></i>API Monitoring</a></li>
-               </ul>
+               </ul> -->
             </li>
             <!-- <li>
                <a href="calendar.html" class="iq-waves-effect"><i class="las la-calendar iq-arrow-left"></i><span>Calendar</span></a>
