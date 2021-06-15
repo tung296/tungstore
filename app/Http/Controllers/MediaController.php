@@ -65,13 +65,13 @@ class MediaController extends Controller
                 $image_name = time().'_'.$file->getClientOriginalName();
                 $file->move(storage_path('app/public/'), $image_name);
     
-                echo "success";
-            // return redirect()->route('media.index')->with('success','Upload success');
+                // return "success";
+            return redirect()->route('media.index')->with('success','Upload success');
         } catch (\Throwable $th) {
             //throw $th;
-            echo "error";
+            // return "error";
 
-            // return redirect()->route('media.index')->with('error','Upload error');
+            return redirect()->route('media.index')->with('error','Upload error');
 
         }
         // dd($request->all());
