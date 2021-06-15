@@ -200,11 +200,13 @@ class FrontController extends Controller
 
     public function add_cart($productId)
     {
+        $user = Auth::user();
+        // dd($user);
         if (!$product = Product::find($productId)) {
             abort(404);
         } else {
             // dd(Cart::where('product_id',$productId));
-            if($cart = Cart::where('product_id',$productId)->first()){
+            if($cart = Cart::where('product_id',$productId)->where('user_id',$user->id)->first()){
                 $old_cart = Cart::where('product_id',$productId)->first();
                 $qty = $old_cart->qty+1;
                 $cart->update([
