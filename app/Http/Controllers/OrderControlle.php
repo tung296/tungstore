@@ -47,18 +47,23 @@ class OrderControlle extends Controller
      */
     public function show($id)
     {
-        $order = Order::find($id);
-        foreach($order->order_detail as $order_detail){
-            $order_detail->product->images = explode("||", $order_detail->product->images)[0];
-            // $money =  $order_detail->qty * $order_detail->product->price;
-            // $total+=$money;
+        if($order = Order::find($id)){
+            foreach($order->order_detail as $order_detail){
+                if (isset($order_detail->product)) {
+                    $order_detail->product->images = explode("||", $order_detail->product->images)[0] ?? '';
+                }
+                
+                // $money =  $order_detail->qty * $order_detail->product->price;
+                // $total+=$money;
+            }
+            return view('orders.show',compact('order'));
         }
-        // dd($order->order_detail);
-        return view('orders.show',compact('order'));
+        return redirect()->route('orders.index')
+                        ->with('error','error show order');
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified resource
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

@@ -81,13 +81,15 @@
          </thead>
          <tbody>
             @foreach($order->order_detail as $item)
-            <tr>
-               <th scope="row">1</th>
-               <td><img width="25%" src="{{ URL::asset('storage/'.$item->product->images) }}" alt="" class="pull-left"></td>
-               <td>{{ $item->product->name }}</td>
-               <td>{{ $item->product->price }}</td>
-               <td>{{ $item->qty }}</td>
-            </tr>
+            @if(isset($item->product))
+               <tr>
+                  <th scope="row">1</th>
+                  <td><img width="25%" src="{{ URL::asset('storage/'.$item->product->images) }}" alt="" class="pull-left"></td>
+                  <td>{{ $item->product->name }}</td>
+                  <td>{{ $item->product->price }}</td>
+                  <td>{{ $item->qty }}</td>
+               </tr>
+            @endif
             @endforeach
          </tbody>
       </table>
