@@ -390,7 +390,7 @@
           </div>
        </div>
     </div> -->
-    <div class="col-lg-12">
+    <!-- <div class="col-lg-12">
        <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
           <div class="iq-card-header d-flex justify-content-between">
              <div class="iq-header-title">
@@ -401,8 +401,8 @@
              <div id="report-chart-04"></div>
           </div>
        </div>
-    </div>
-    <div class="col-lg-12">
+    </div> -->
+    <!-- <div class="col-lg-12">
        <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
           <div class="iq-card-header d-flex justify-content-between">
              <div class="iq-header-title">
@@ -438,94 +438,6 @@
                       </tr>
                    </thead>
                    <tbody>
-                      <!-- <tr>
-                         <td>
-                            <div class="avatar-40 text-center rounded-circle iq-bg-danger position-relative">
-                               <span class="font-size-20 align-item-center"><i class="fa fa-user" aria-hidden="true"></i><span class="bg-success dots"></span></span>
-                            </div>
-                         </td>
-                         <td>
-                            <h6>Noveruche Admin</h6>
-                            <span class="text-body font-weight-400">8GB/80GB/SF02-Ubuntu Iconic- jfkakf-daksl...</span>
-                         </td>
-                         <td>192.168.130.26</td>
-                         <td>2 Months ago</td>
-                         <td>
-                            <div class="text-danger">Web Server</div>
-                         </td>
-                         <td>Indioserver</td>
-                         <td>
-                            <span class="text-black font-size-24" id="dropdownMenuButton3">
-                            <i class="ri-more-fill"></i>
-                            </span>
-                         </td>
-                      </tr>
-                      <tr>
-                         <td>
-                            <div class="avatar-40 text-center rounded-circle iq-bg-danger position-relative">
-                               <span class="font-size-20 align-item-center"><i class="fa fa-user" aria-hidden="true"></i><span class="bg-success dots"></span></span>
-                            </div>
-                         </td>
-                         <td>
-                            <h6>Developing Hier</h6>
-                            <span class="text-body font-weight-400">8GB/80GB/SF02-Ubuntu Iconic- jfkakf-daksl...</span>
-                         </td>
-                         <td>192.168.130.26</td>
-                         <td>4 Months ago</td>
-                         <td>
-                            <div class="text-primary">Desky</div>
-                         </td>
-                         <td>Jeniorde</td>
-                         <td>
-                            <span class="text-black font-size-24" id="dropdownMenuButton4">
-                            <i class="ri-more-fill"></i>
-                            </span>
-                         </td>
-                      </tr>
-                      <tr>
-                         <td>
-                            <div class="avatar-40 text-center rounded-circle iq-bg-danger position-relative">
-                               <span class="font-size-20 align-item-center"><i class="fa fa-user" aria-hidden="true"></i><span class="bg-success dots"></span></span>
-                            </div>
-                         </td>
-                         <td>
-                            <h6>Nalurel Dilam</h6>
-                            <span class="text-body font-weight-400">8GB/80GB/SF02-Ubuntu Iconic- jfkakf-daksl...</span>
-                         </td>
-                         <td>192.168.130.26</td>
-                         <td>5 Months ago</td>
-                         <td>
-                            <div class="text-success">Software</div>
-                         </td>
-                         <td>Walikarsi</td>
-                         <td>
-                            <span class="text-black font-size-24" id="dropdownMenuButton5">
-                            <i class="ri-more-fill"></i>
-                            </span>
-                         </td>
-                      </tr>
-                      <tr>
-                         <td>
-                            <div class="avatar-40 text-center rounded-circle iq-bg-danger position-relative">
-                               <span class="font-size-20 align-item-center"><i class="fa fa-user" aria-hidden="true"></i><span class="bg-success dots"></span></span>
-                            </div>
-                         </td>
-                         <td>
-                            <h6>Nariokali Borji</h6>
-                            <span class="text-body font-weight-400">8GB/80GB/SF02-Ubuntu Iconic- jfkakf-daksl...</span>
-                         </td>
-                         <td>192.168.130.26</td>
-                         <td>6 Months ago</td>
-                         <td>
-                            <div class="text-primary">Innohouse</div>
-                         </td>
-                         <td>Leoharshan</td>
-                         <td>
-                            <span class="text-black font-size-24" id="dropdownMenuButton6">
-                            <i class="ri-more-fill"></i>
-                            </span>
-                         </td>
-                      </tr> -->
                       @foreach($orders as $item)
                       <tr>
                          <td>
@@ -535,7 +447,6 @@
                          </td>
                          <td>
                             <h6>{{ $item->name }}</h6>
-                            <!-- <span class="text-body font-weight-400"></span> -->
                          </td>
                          <td>{{ $item->phone }}</td>
                          <td>
@@ -543,11 +454,6 @@
                            </td>
                         <td>{{ $item->status }}</td>
                         <td>{{ $item->payment }}</td>
-                           <!-- <td>
-                            <span class="text-black font-size-24" id="dropdownMenuButton7">
-                            <i class="ri-more-fill"></i>
-                            </span>
-                         </td> -->
                       </tr>
                       @endforeach
                    </tbody>
@@ -555,6 +461,6 @@
              </div>
           </div>
        </div>
-    </div>
+    </div> -->
  </div>
 @endsection
